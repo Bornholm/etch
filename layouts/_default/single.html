@@ -12,6 +12,11 @@
         {{- end -}}
         </div>
     </header>
+    {{ if .Params.toc }}
+        <hr />
+        {{- .TableOfContents -}}
+        <hr />
+    {{ end }}
     {{- .Content -}}
 </article>
 {{ end }}

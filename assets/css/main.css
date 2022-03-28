@@ -279,3 +279,17 @@ footer#footer {
     color: #b3b3b3;
     margin: 40px 0;
 }
+
+main#content .highlight {
+    overflow: hidden;
+    margin: -2em 0;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+@media (max-width: 770px) {
+    main#content .highlight {
+        padding: 0;
+        margin: -1em 0;
+    }
+}
