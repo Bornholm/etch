@@ -1,3 +1,6 @@
 <footer id="footer">
     {{ .Site.Params.copyright }}
+    {{ if .Site.Params.OffenAuditoriumURL }}
+        | <a style="color: #007dfa;text-decoration: none" href="{{ .Site.Params.OffenAuditoriumURL }}">Gérer vos données collectées</a>
+    {{ end }}
 </footer>
