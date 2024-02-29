@@ -19,4 +19,37 @@
     {{ end }}
     {{- .Content -}}
 </article>
+<script type="module">
+    (function() {
+        const mermaidBlocks = document.querySelectorAll('code[class="language-mermaid"]')
+        Array.from(mermaidBlocks).forEach(block => {
+            const mermaidElement = document.createElement('pre')
+            mermaidElement.classList.add("mermaid")
+            mermaidElement.textContent = block.textContent
+            mermaidElement.style.cursor = "pointer"
+            mermaidElement.style.backgroundColor = "white"
+            mermaidElement.onclick = (evt) => {
+                const svg = mermaidElement.querySelector("svg");
+                const as_text = new XMLSerializer().serializeToString(svg);
+                const blob = new Blob([as_text], { type: "image/svg+xml" });
+                const url = URL.createObjectURL(blob);
+                const win = open(url);
+                win.onload = (evt) => URL.revokeObjectURL(url);
+            };
+            const parent = block.parentElement
+            parent.parentElement.replaceChild(mermaidElement, parent);
+        })
+
+
+        if (mermaidBlocks.length > 0) {
+            const mermaidScript = document.createElement("script")
+            mermaidScript.type = "module"
+            mermaidScript.textContent = `
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+            mermaid.initialize({ startOnLoad: true });
+            `
+            document.body.appendChild(mermaidScript)
+        }
+    }())
+</script>
 {{ end }}
